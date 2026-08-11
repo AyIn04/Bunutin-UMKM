@@ -15,7 +15,7 @@ export const uploadImages = async (
   const token = localStorage.getItem("adminToken");
 
   const response = await fetch(
-    "http://localhost:5000/api/umkm/upload",
+    "https://bunutin-umkm.vercel.app/api/umkm/upload",
     {
       method: "POST",
       headers: {

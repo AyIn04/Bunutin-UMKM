@@ -1,6 +1,6 @@
 import { getToken } from "./authService";
 
-const API_URL = "http://localhost:5000/api/umkm";
+const API_URL = "https://bunutin-umkm.vercel.app/api/umkm";
 
 // =========================
 // HEADER AUTH

@@ -21,35 +21,47 @@ export default function DetailUMKM() {
   // GET DETAIL UMKM
   // =========================
   useEffect(() => {
-    const fetchUMKM = async () => {
-      try {
-        setLoading(true);
-        setError("");
+  const fetchUMKM = async () => {
+    try {
+      setLoading(true);
+      setError("");
 
-        const response = await fetch(
-          `http://localhost:5000/api/umkm/${id}`
-        );
+      console.log("ID DETAIL:", id);
 
-        if (!response.ok) {
-          throw new Error("UMKM tidak ditemukan");
-        }
-
-        const result = await response.json();
-
-        setData(result);
-
-        // Reset foto aktif setiap kali data berubah
-        setFotoAktif(0);
-      } catch (err) {
-        console.error(err);
-        setError("UMKM tidak ditemukan");
-      } finally {
-        setLoading(false);
+      if (!id) {
+        throw new Error("ID UMKM tidak tersedia");
       }
-    };
 
-    fetchUMKM();
-  }, [id]);
+      const url =
+        `https://bunutin-umkm.vercel.app/api/umkm/${id}`;
+
+      console.log("FETCH URL:", url);
+
+      const response = await fetch(url);
+
+      console.log("STATUS:", response.status);
+
+      if (!response.ok) {
+        throw new Error("UMKM tidak ditemukan");
+      }
+
+      const result = await response.json();
+
+      console.log("DATA UMKM:", result);
+
+      setData(result);
+      setFotoAktif(0);
+
+    } catch (err) {
+      console.error("DETAIL UMKM ERROR:", err);
+      setError("UMKM tidak ditemukan");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchUMKM();
+}, [id]);
 
   // =========================
   // LOADING
