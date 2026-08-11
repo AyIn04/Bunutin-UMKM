@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme {
+    /* Burgundy */
+    --color-burgundy: #800020;
+    --color-burgundy-dark: #660019;
+    --color-burgundy-light: #f5e6ea;
+
+    /* Warna pendukung */
+    --color-secondary: #a67c52;
+    --color-secondary-light: #f1e8dc;
+}
+
+/* Hide Scrollbar */
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
