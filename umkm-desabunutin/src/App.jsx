@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import Hero from "./components/Hero";
 import Intro from "./components/Intro";
 import SectionTitle from "./components/SectionTitle";
-import SearchBar from "./components/SearchBar";
+import SearchBar from "./components/Searchbar";
 import UMKMGrid from "./components/UMKMGrid";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
