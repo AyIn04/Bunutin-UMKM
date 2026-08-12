@@ -1,4 +1,4 @@
-const API_URL = "https://bunutin-umkm.vercel.app/api";
+const API_URL = "https://bunutin-umkm.vercel.app/api/umkm";
 
 // =========================
 // GET semua UMKM
