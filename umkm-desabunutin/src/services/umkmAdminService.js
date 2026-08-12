@@ -1,4 +1,22 @@
+import { getToken } from "./authService";
+
 const API_URL = "https://bunutin-umkm.vercel.app/api/umkm";
+
+// =========================
+// HEADER AUTH
+// =========================
+function getAuthHeaders() {
+  const token = getToken();
+
+  return {
+    "Content-Type": "application/json",
+    ...(token
+      ? {
+          Authorization: `Bearer ${token}`,
+        }
+      : {}),
+  };
+}
 
 // =========================
 // GET semua UMKM
@@ -17,13 +35,20 @@ export async function getAllUMKM() {
 // GET UMKM berdasarkan ID
 // =========================
 export async function getUMKMById(id) {
-  const response = await fetch(`${API_URL}/${id}`);
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: "GET",
+    headers: getAuthHeaders(),
+  });
+
+  const result = await response.json();
 
   if (!response.ok) {
-    throw new Error("UMKM tidak ditemukan");
+    throw new Error(
+      result.message || "UMKM tidak ditemukan"
+    );
   }
 
-  return await response.json();
+  return result;
 }
 
 // =========================
@@ -32,9 +57,7 @@ export async function getUMKMById(id) {
 export async function createUMKM(data) {
   const response = await fetch(API_URL, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: getAuthHeaders(),
     body: JSON.stringify(data),
   });
 
@@ -55,9 +78,7 @@ export async function createUMKM(data) {
 export async function updateUMKM(id, data) {
   const response = await fetch(`${API_URL}/${id}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: getAuthHeaders(),
     body: JSON.stringify(data),
   });
 
@@ -78,6 +99,7 @@ export async function updateUMKM(id, data) {
 export async function deleteUMKM(id) {
   const response = await fetch(`${API_URL}/${id}`, {
     method: "DELETE",
+    headers: getAuthHeaders(),
   });
 
   const result = await response.json();

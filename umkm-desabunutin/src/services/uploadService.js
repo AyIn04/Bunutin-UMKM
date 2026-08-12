@@ -1,7 +1,14 @@
-export const uploadImages = async (
-  gambar,
-  galeri
-) => {
+const API_URL = "https://bunutin-umkm.vercel.app/api/umkm/upload";
+
+export async function uploadImages(gambar, galeri = []) {
+  const token = localStorage.getItem("adminToken");
+
+  if (!token) {
+    throw new Error(
+      "Token login tidak ditemukan. Silakan login kembali."
+    );
+  }
+
   const formData = new FormData();
 
   if (gambar) {
@@ -12,20 +19,21 @@ export const uploadImages = async (
     formData.append("galeri", file);
   });
 
-  const token = localStorage.getItem("adminToken");
+  const response = await fetch(API_URL, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  });
 
-  const response = await fetch(
-    "https://bunutin-umkm.vercel.app/api/umkm/upload",
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: formData,
-    }
-  );
+  let result = {};
 
-  const result = await response.json();
+  try {
+    result = await response.json();
+  } catch {
+    result = {};
+  }
 
   if (!response.ok) {
     throw new Error(
@@ -34,4 +42,4 @@ export const uploadImages = async (
   }
 
   return result;
-};
+}
